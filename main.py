@@ -62,7 +62,7 @@ def extract93(driver, todayOrTomorrow):
             odds = jogo.find_elements(By.CLASS_NAME, 'odd')
             if ('CHUTES AO GOL' in teams[0].text.upper() or 'CHUTES NO GOL' in teams[0].text.upper()):
                 f.write('* ' + teams[1].text + '\n')
-                f.write(odds[0].text + '\n')
+                f.write(odds[0].text.replace(',', '.') + '\n')
 
     f.write("\n[ODDS ESPECIAIS]\n")
 
@@ -93,7 +93,7 @@ def extract93(driver, todayOrTomorrow):
         f.write(f"-> {jogo}\n")
         for detalhe in detalhes:
             f.write(f"* {detalhe['tipo']}\n")
-            f.write(f"{detalhe['odd']}\n")
+            f.write(f"{detalhe['odd'].replace(',', '.')}\n")
 
 def extract(driver, todayOrTomorrow):
     for websiteIndex in websites:
@@ -138,9 +138,9 @@ def extract(driver, todayOrTomorrow):
                     teams = jogo.find_elements(By.CLASS_NAME, 'team')
                     odds = jogo.find_elements(By.CLASS_NAME, 'odd')
                     f.write('* ' + teams[0].text + '\n')
-                    f.write(odds[0].text + '\n')
+                    f.write(odds[0].text.replace(',', '.') + '\n')
                     f.write('* ' + teams[1].text + '\n')
-                    f.write(odds[2].text + '\n')
+                    f.write(odds[2].text.replace(',', '.') + '\n')
 
         f.write("\n[ODDS ESPECIAIS]\n")
 
@@ -157,9 +157,9 @@ def extract(driver, todayOrTomorrow):
                     teams = jogo.find_elements(By.CLASS_NAME, 'team')
                     odds = jogo.find_elements(By.CLASS_NAME, 'odd')
                     f.write(f"* {teams[0].text}\n")
-                    f.write(f"{odds[0].text}\n")
+                    f.write(f"{odds[0].text.replace(',', '.')}\n")
                     f.write(f"* {teams[1].text}\n")
-                    f.write(f"{odds[2].text}\n")
+                    f.write(f"{odds[2].text.replace(',', '.')}\n")
 
 # 0 para Hoje
 # 1 para Amanhã

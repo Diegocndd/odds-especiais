@@ -8,7 +8,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 class Webdriver:
     def __init__(self, download_directory, disable_images=False) -> None:
         chrome_options = webdriver.ChromeOptions()
-        # chrome_options.add_argument('--headless=new')
+        chrome_options.add_argument('--headless=new')
         chrome_options.add_argument('window-size=1024x768')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--no-sandbox')
