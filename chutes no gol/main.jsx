@@ -1,4 +1,6 @@
 // @include "prototypes.jsx"
+// @include "insert_data.jsx"
+// @include "utils.jsx"
 
 function getUserInput(promptText) {
     return prompt(promptText);
@@ -16,7 +18,7 @@ function readQuotationsFile(filePath) {
     return content;
 }
 
-function parseQuotations(content, id, modalidade) {
+function parseQuotations(content, id) {
     var targetSection = '#' + id.toString() + '##########################';
     var startIndex = content.indexOf(targetSection);
 
@@ -29,7 +31,7 @@ function parseQuotations(content, id, modalidade) {
     if (endIndex === -1) endIndex = content.length;
 
     var section = content.substring(startIndex, endIndex);
-    var modeKey = modalidade === "1" ? "[CHUTES NO GOL]" : "[ODDS ESPECIAIS]";
+    var modeKey = "[CHUTES NO GOL]"
     var modeStart = section.indexOf(modeKey);
 
     if (modeStart === -1) {
@@ -63,17 +65,17 @@ function parseQuotations(content, id, modalidade) {
 }
 
 var id = getUserInput("Digite o código do cliente (exemplo: 93):");
-var modalidade = getUserInput("Digite a modalidade (1 para Chutes no Gol, 2 para Odds Especiais):");
 
-if (id && modalidade && (modalidade === "1" || modalidade === "2")) {
+if (id) {
     var scriptPath = File($.fileName).path;
     var filePath = scriptPath + "/../extrator de odds/quotations.txt";
     
     var fileContent = readQuotationsFile(filePath);
 
     if (fileContent) {
-        var result = parseQuotations(fileContent, id, modalidade);
-        alert("Resultado: \n" + JSON.stringify(result, null, 2));
+        var result = parseQuotations(fileContent, id);
+        inserirChutesNoGol(id, result)
+        alert("Execução finalizada ✅")
     }
 } else {
     alert("Entrada inválida. Certifique-se de fornecer um cliente e uma modalidade válidos.");
